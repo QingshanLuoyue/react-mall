@@ -24,7 +24,7 @@ export default () => {
     queryRecommend().then((res) => {
       setList(res.list.data);
     });
-  });
+  }, []);
   return (
     <>
       <WingBlank size="lg" className={styles.main}>

@@ -30,6 +30,7 @@ export default defineConfig({
       routes: [
         { path: '/', component: '@/pages/home/index' },
         { path: '/login', component: '@/pages/login' },
+        { path: '/search', component: '@/pages/search' },
       ],
     },
   ],

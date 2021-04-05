@@ -31,6 +31,7 @@
     "@umijs/test": "^3.4.8",
     "lint-staged": "^10.0.7",
     "mockjs": "1.1.0",
+    "postcss-px-to-viewport": "1.1.1",
     "prettier": "^2.2.0",
     "rc-form": "2.4.11",
     "react": "17.x",

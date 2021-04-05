@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'umi';
+import { connect, Redirect } from 'umi';
 
 // 样式
 import styles from './index.less';
@@ -14,7 +14,14 @@ interface LoginProps extends ConnectProps {
   user: UserModelState;
 }
 
-const Login: React.FC<LoginProps> = ({ dispatch }) => {
+const Login: React.FC<LoginProps> = ({ user, dispatch, location }) => {
+  const { userid } = user.currentUser;
+  const isLogin = !!userid;
+  if (isLogin) {
+    // 从哪里跳转过来登录，登录完成后，跳转回去
+    const { from = '/' } = location.state || {};
+    return <Redirect to={from} />;
+  }
   const handleSubmit = (value: LoginParams) => {
     // 提交登录操作
     dispatch({

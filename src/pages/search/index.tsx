@@ -12,7 +12,7 @@ interface ListState {
 }
 
 const Search: React.FC<ListState> = () => {
-  const [state, setState] = useState({
+  const [state, setState] = useState<ListState>({
     data: [],
     pagination: {
       totalPage: 0,

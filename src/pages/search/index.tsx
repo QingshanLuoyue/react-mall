@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import List from './List';
 import SearchInput from './SearchInput';
 
@@ -21,7 +21,7 @@ const Search: React.FC<ListState> = () => {
       searchKey: '',
     },
   });
-  const queryList = (pagination: PaginationType) => {
+  const queryList = useCallback((pagination: PaginationType) => {
     let pageNo = state.pagination.pageNo;
     let pageSize = state.pagination.pageSize;
     let searchKey = state.pagination.searchKey;
@@ -40,21 +40,22 @@ const Search: React.FC<ListState> = () => {
       const { list } = res;
       saveState(list);
     });
-  };
-  const saveState = (partialState: {
-    data?: ProductType[];
-    pagination: PaginationType;
-  }) => {
-    let data = [...state.data, ...(partialState.data || [])];
-    let pagination = {
-      ...state.pagination,
-      ...partialState.pagination,
-    };
-    if (pagination.pageNo === 0) {
-      data = partialState.data || [];
-    }
-    setState({ data, pagination });
-  };
+  }, []);
+
+  const saveState = useCallback(
+    (partialState: { data?: ProductType[]; pagination: PaginationType }) => {
+      let data = [...state.data, ...(partialState.data || [])];
+      let pagination = {
+        ...state.pagination,
+        ...partialState.pagination,
+      };
+      if (pagination.pageNo === 0) {
+        data = partialState.data || [];
+      }
+      setState({ data, pagination });
+    },
+    [],
+  );
   return (
     <div>
       <SearchInput queryList={queryList} />
